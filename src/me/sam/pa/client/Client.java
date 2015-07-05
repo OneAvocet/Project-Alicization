@@ -1,13 +1,13 @@
 package me.sam.pa.client;
 
+import me.sam.pa.common.ProjectAlicization;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Client extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
-
-    public static String title = "Project Alicization";
 
     private static DisplayMode dm = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
     private static int width = dm.getWidth();
@@ -93,7 +93,7 @@ public class Client extends Canvas implements Runnable {
     public static void main(String[] args) {
         Client pa = new Client();
         pa.frame.setResizable(false);
-        pa.frame.setTitle(title);
+        pa.frame.setTitle(ProjectAlicization.title);
         pa.frame.add(pa);
         pa.frame.pack();
         pa.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
