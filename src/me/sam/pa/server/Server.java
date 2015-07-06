@@ -1,15 +1,28 @@
 package me.sam.pa.server;
 
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 public class Server implements Runnable {
     private static final long serialVersionUID = 1L;
 
     private Thread thread;
     private boolean running = false;
+    private DatagramSocket socket;
+    private int port;
 
-    public Server() {}
+    public Server(int port) {
+        this.port = port;
+        try {
+            socket = new DatagramSocket(port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
 
     public synchronized void start() {
         running = true;
+        System.out.println("Server started on port " + port);
         thread = new Thread(this, "PA_Server");
         thread.start();
     }
@@ -17,6 +30,8 @@ public class Server implements Runnable {
     public synchronized void stop() {
         try {
             thread.join();
+            running = false;
+            socket.close();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -46,11 +61,16 @@ public class Server implements Runnable {
         stop();
     }
 
-    public void update() {
-    }
+    public void update() {}
 
     public static void main(String[] args) {
-        Server pa = new Server();
-        pa.start();
+           int port;
+        if (args.length != 1) {
+            port = 1337;
+        } else {
+            port = Integer.parseInt(args[0]);
+        }
+        Server s = new Server(port);
+        s.start();
     }
 }

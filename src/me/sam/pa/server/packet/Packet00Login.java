@@ -37,7 +37,7 @@ public class Packet00Login extends Packet {
 
     @Override
     public byte[] getData() {
-        return ("00" + this.username + "," + getX() + "," + getY() + "," + getZ()).getBytes();
+        return (this.packetId + this.username + "," + getX() + "," + getY() + "," + getZ()).getBytes();
     }
 
     public String getUsername() {
