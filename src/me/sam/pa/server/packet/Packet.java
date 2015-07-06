@@ -52,4 +52,9 @@ public abstract class Packet {
         }
         return PacketTypes.INVALID;
     }
+
+    @Override
+    public String toString() {
+        return Packet.lookupPacket(this.packetId).toString();
+    }
 }
